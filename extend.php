@@ -11,19 +11,32 @@
 
 namespace FoF\DefaultUserPreferences;
 
-use Flarum\User\Event\Registered;
+use Flarum\User\Event\LoggedIn;
 use Flarum\User\User;
 use Illuminate\Events\Dispatcher;
 
 return [
     function (Dispatcher $events) {
-        $events->listen(Registered::class, function (Registered $event) {
+        $events->listen(LoggedIn::class, function (LoggedIn $event) {
             foreach (['post', 'user'] as $key) {
                 $event->user->setPreference(
                     User::getNotificationPreferenceKey("{$key}Mentioned", 'email'),
-                    true
+                    false
                 );
             }
+            $event->user->setPreference(
+                  User::getNotificationPreferenceKey("discussionCreated", 'email'),
+                  false
+            );
+            $event->user->setPreference(
+                  User::getNotificationPreferenceKey("newDiscussionInTag", 'email'),
+                  false
+            );
+            $event->user->setPreference(
+                  User::getNotificationPreferenceKey("newPostInTag", 'email'),
+                  false
+            );
+            
 
             $event->user->setPreference('followAfterReply', true);
 
