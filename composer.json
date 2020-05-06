@@ -1,5 +1,5 @@
 {
-  "name": "fof/default-user-preferences",
+  "name": "xDefcon/default-user-preferences",
   "description": "Enable emails for replies and mentions by default in user preferences",
   "keywords": [
     "flarum"
